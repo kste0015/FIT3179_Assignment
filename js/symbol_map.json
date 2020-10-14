@@ -1,0 +1,41 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "width": 800,
+  "height": 500,
+  "title": "Volcanoes",
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/js/world_low.geo.json",
+        "format": {"type": "topojson", "feature": "world_low"}
+      },
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/volcano.csv"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"}
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "circle",
+            "tooltip": {"content": "data"}
+          },
+          "encoding": {
+            "color": {"field": "elevation", 
+                      "type": "quantitative",
+                      "scale":{
+                          "scheme":"reds"
+                      }          
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
