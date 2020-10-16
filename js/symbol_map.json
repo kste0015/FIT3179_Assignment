@@ -1,40 +1,136 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "width": 800,
-  "height": 500,
+  "width": 1600,
+  "height": 1000,
   "title": "Volcanic Eruptions",
-  "projection": {"type": "equalEarth"},
+  "projection": {
+    "type": "equalEarth"
+  },
   "layer": [
     {
       "data": {
         "url": "https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/js/world_low.geo.json",
-        "format": {"type": "topojson", "feature": "world_low"}
+        "format": {
+          "type": "topojson",
+          "feature": "world_low"
+        }
       },
-      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgray",
+        "stroke": "white"
+      }
     },
     {
       "data": {
         "url": "https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/eruptions.csv"
       },
-      "transform":[
-        {"calculate": "toDate(
       "encoding": {
-        "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude": {"field": "latitude", "type": "quantitative"}
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        }
       },
+      "transform": [
+        {
+          "filter": {
+            "field": "vei",
+            "valid": true
+          }
+        },
+        {
+          "calculate": "datetime(datum.end_year,datum.end_month-1,datum.end_day)",
+          "as": "end_date"
+        },
+        {
+          "calculate": "datetime(datum.start_year,datum.start_month-1,datum.start_day)",
+          "as": "start_date"
+        },
+        {
+          "calculate": "floor((time(datum.end_date)-time(datum.start_date))/86400000)",
+          "as": "Duration"
+        }
+      ],
       "layer": [
         {
           "mark": {
             "type": "circle",
-            "tooltip": {"content": "data"}
+            "color": "crimson",
+            "opacity": 0.7,
+            "stroke": "white"
           },
           "encoding": {
-            "size": {"field": "vei", 
-                     "type": "quantitative",
-                     "scale": {
-                          "domain": [0, 8]
-                        }}     
-            }
+            "size": {
+              "field": "vei",
+              "type": "ordinal",
+              "legend": {
+                "title": "Volcano Explosivity Index"
+              },
+              "scale": {
+                "type": "ordinal",
+                "range": [
+                  32,
+                  64,
+                  128,
+                  256,
+                  512,
+                  1024,
+                  2048,
+                  4096
+                ]
+              }
+            },
+            "color": {
+              "field": "Duration",
+              "type": "quantitative",
+              "legend": {
+                "title": "Eruption duration in days"
+              },
+              "scale": {
+                "type": "sqrt",
+                "scheme": "reds",
+                "domain": [
+                  0,
+                  5000
+                ]
+              }
+            },
+            "tooltip": [
+              {
+                "field": "volcano_name",
+                "type": "nominal",
+                "title": "Volcano Name"
+              },
+              {
+                "field": "vei",
+                "type": "ordinal",
+                "title": "Volcano Explosivity Index"
+              },
+              {
+                "field": "start_date",
+                "type": "temporal",
+                "title": "Eruption start date"
+              },
+              {
+                "field": "Duration",
+                "type": "quantitative",
+                "title": "Eruption duration in days"
+              },
+              {
+                "field": "latitude",
+                "type": "quantitative",
+                "title": "Latitude"
+              },
+              {
+                "field": "longitude",
+                "type": "quantitative",
+                "title": "Longitude"
+              }
+            ]
           }
         }
       ]
