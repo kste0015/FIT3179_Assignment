@@ -1,0 +1,148 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "width": 1600,
+  "height": 1000,
+  "data": {
+    "url": "https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/eruptions.csv"
+  },
+  "params": [
+    {
+      "name": "VolcanoTypeSelection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Caldera",
+          "Complex",
+          "Compound",
+          "Crater rows",
+          "Fissure vent",
+          "Lava cone",
+          "Lava dome",
+          "Maar",
+          "Pyroclastic cone",
+          "Pyroclastic shield",
+          "Shield",
+          "Stratovolcano",
+          "Subglacial",
+          "Submarine",
+          "Tuff cone",
+          "Volcanic field"
+        ],
+        "labels": [
+          "Show All",
+          "Caldera",
+          "Complex",
+          "Compound",
+          "Crater rows",
+          "Fissure vent",
+          "Lava cone",
+          "Lava dome",
+          "Maar",
+          "Pyroclastic cone",
+          "Pyroclastic shield",
+          "Shield",
+          "Stratovolcano",
+          "Subglacial",
+          "Submarine",
+          "Tuff cone",
+          "Volcanic field"
+        ],
+        "name": "Select Volcano Type: "
+      }
+    },
+    {
+      "name": "eruption_start_filter",
+      "value": -12000,
+      "bind": {
+        "input": "range",
+        "min": -12000,
+        "max": 2020,
+        "step": 10,
+        "name": "Eruptions Since (year): "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "lookup": "volcano_number",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/volcano.csv"
+        },
+        "key": "volcano_number",
+        "fields": [
+          "primary_volcano_type",
+          "country",
+          "elevation",
+          "population_within_5_km"
+        ]
+      }
+    },
+    {
+      "filter": "datum.country!=null"
+    },
+    {
+      "filter": "VolcanoTypeSelection ? replace(datum.primary_volcano_type,/\\?|\\(.*\\)$/,'')==VolcanoTypeSelection : true"
+    },
+    {
+      "filter": "datum.start_year >= eruption_start_filter"
+    },
+    {
+      "calculate": "replace(datum.primary_volcano_type,/\\?|\\(.*\\)$/,'')",
+      "as": "VolcanoType"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "country_type_count"
+        }
+      ],
+      "groupby": [
+        "country",
+        "VolcanoType"
+      ]
+    }
+  ],
+  "mark": "bar",
+  "title": "Number of Eruptions",
+  "encoding": {
+    "x": {
+      "field": "country_type_count",
+      "type": "quantitative",
+      "title": "Eruption Count"
+    },
+    "y": {
+      "field": "country",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Country"
+    },
+    "color": {
+      "field": "VolcanoType",
+      "type": "nominal",
+      "scale": {
+        "scheme": "tableau20"
+      },
+      "title": "Volcano Type"
+    },
+    "tooltip": [
+      {
+        "field": "country",
+        "type": "nominal",
+        "title": "Country"
+      },
+      {
+        "field": "VolcanoType",
+        "type": "nominal",
+        "title": "Volcano Type"
+      },
+      {
+        "field": "country_type_count",
+        "type": "quantitative",
+        "title": "Eruption Count"
+      }
+    ]
+  }
+}
