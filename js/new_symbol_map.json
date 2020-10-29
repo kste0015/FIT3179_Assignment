@@ -278,6 +278,32 @@
               }
             ]
           }
+        },
+        {
+          "mark":{
+            "type":"text",
+            "align":"right",
+            "baseline":"middle",
+            "dx":-12,
+            "fontSize":11.5,
+            "fontStyle":"italic"
+          },
+          "encoding":{
+            "text":{
+              "field":"volcano_name",
+              "type":"nominal"
+            },
+            "color":{
+              "value":"black"
+            },
+            "opacity":{
+              "condition":{
+                "test":"datum.vei >= 6",
+                "value":1
+              },
+              "value":0
+            }
+          }
         }
       ]
     },
@@ -374,7 +400,18 @@
           },
           "encoding":{
             "text":{
-              "field":""
+              "field":"volcano_name",
+              "type":"nominal"
+            },
+            "color":{
+              "value":"black"
+            },
+            "opacity":{
+              "condition":{
+                "test":"datum.last_eruption_year == 2020 && datum.population_within_5_km >10000",
+                "value":1
+              },
+              "value":0
             }
           }
         }
