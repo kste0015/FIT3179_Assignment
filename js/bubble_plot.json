@@ -4,8 +4,6 @@
     "url":"https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/eruptions.csv"
   },
   "title":"Population per Eruption",
-  "width":600,
-  "height":400,
   "params":[
     {
       "name":"population_range",
