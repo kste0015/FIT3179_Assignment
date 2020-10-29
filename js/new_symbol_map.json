@@ -25,7 +25,7 @@
     },
     {
       "name":"year_since",
-      "value":"1900",
+      "value":1900,
       "bind":{
         "input":"range",
         "min":-12000,
