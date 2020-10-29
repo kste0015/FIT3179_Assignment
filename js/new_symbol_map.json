@@ -30,7 +30,7 @@
         "input":"range",
         "min":-12000,
         "max":2020,
-        "step":50,
+        "step":100,
         "name":"Eruptions Since (year)"
       }
     }
