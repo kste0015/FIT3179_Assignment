@@ -82,56 +82,96 @@
       "as":"population_range_count"
     }
   ],
-  "mark":{
-    "type":"circle",
-    "color":"crimson",
-    "opacity":0.8,
-    "stroke":"black",
-    "strokeWidth":1
-  },
-  "encoding":{
-    "x":{
-      "field":"start_date",
-      "type":"temporal",
-      "title":"Eruption Date"
-    },
-    "y":{
-      "field":"vei",
-      "type":"ordinal",
-      "axis":{
-        "title":"Volcanic Explositivity Index"
+  "layer":[
+    {
+      "mark":{
+        "type":"circle",
+        "color":"crimson",
+        "opacity":0.8,
+        "stroke":"black",
+        "strokeWidth":1
       },
-      "sort":"-y"
-    },
-    "size":{
-      "field":"population_range_count",
-      "type":"quantitative",
-      "title":"Population (in 2020)",
-      "scale":{
-        "rangeMax":5000
+      "encoding":{
+        "x":{
+          "field":"start_date",
+          "type":"temporal",
+          "title":"Eruption Date"
+        },
+        "y":{
+          "field":"vei",
+          "type":"ordinal",
+          "axis":{
+            "title":"Volcanic Explositivity Index"
+          },
+          "sort":"-y"
+        },
+        "size":{
+          "field":"population_range_count",
+          "type":"quantitative",
+          "title":"Population (in 2020)",
+          "scale":{
+            "rangeMax":5000
+          }
+        },
+        "tooltip":[
+          {
+            "field":"volcano_name",
+            "type":"nominal",
+            "title":"Volcano Name"
+          },
+          {
+            "field":"country",
+            "type":"nominal",
+            "title":"Country"
+          },
+          {
+            "field":"start_date",
+            "type":"temporal",
+            "title":"Last Eruption Year"
+          },
+          {
+            "field":"population_range_count",
+            "type":"quantitative",
+            "title":"Population"
+          }
+        ]
       }
     },
-    "tooltip":[
-      {
-        "field":"volcano_name",
-        "type":"nominal",
-        "title":"Volcano Name"
+    {
+      "mark":{
+        "type":"text",
+        "align":"right",
+        "baseline":"middle",
+        "dy":-40,
+        "fontSize":11.5,
+        "fontStyle":"italic"
       },
-      {
-        "field":"country",
-        "type":"nominal",
-        "title":"Country"
-      },
-      {
-        "field":"start_date",
-        "type":"temporal",
-        "title":"Last Eruption Year"
-      },
-      {
-        "field":"population_range_count",
-        "type":"quantitative",
-        "title":"Population"
+      "encoding":{
+        "x":{
+          "field":"start_date",
+          "type":"temporal",
+          "title":"Eruption Date"
+        },
+        "y":{
+          "field":"vei",
+          "type":"ordinal",
+          "axis":{
+            "title":"Volcanic Explositivity Index"
+          },
+          "sort":"-y"
+        },
+        "text":{
+          "field":"volcano_name",
+          "type":"nominal"
+        },
+        "opacity":{
+          "condition":{
+            "test":"(datum.population_range_count >= 5000000 && !(population_range > 30)) || (datum.population_range_count >= 40000000 && population_range == 100)",
+            "value":1
+          },
+          "value":0
+        }
       }
-    ]
-  }
+    }
+  ]
 }
