@@ -1,8 +1,8 @@
 {
   "$schema":"https://vega.github.io/schema/vega-lite/v4.json",
   "title":"Volcanic Eruptions",
-  "width": 900,
-  "height": 500,
+  "width": 800,
+  "height": 450,
   "projection":{
     "type":"equalEarth"
   },
