@@ -1,7 +1,7 @@
 {
   "$schema":"https://vega.github.io/schema/vega-lite/v4.json",
-  "width":1600,
-  "height":1000,
+  "width":800,
+  "height":500,
   "title":"Volcanic Eruptions",
   "projection":{
     "type":"equalEarth"
@@ -21,6 +21,102 @@
       "bind":{
         "input":"checkbox",
         "name":"Show Eruptions"
+      }
+    },
+    {
+      "name":"region_select",
+      "bind":{
+        "input":"select",
+        "options":[
+          null,
+          "Africa and Red Sea",
+          "Alaska",
+          "Antarctica",
+          "Atlantic Ocean",
+          "Canada and Western USA",
+          "Hawaii and Pacific Ocean",
+          "Iceland and Arctic Ocean",
+          "Indonesia",
+          "Japan, Taiwan, Marianas",
+          "Kamchatka and Mainland Asia",
+          "Kuril Islands",
+          "Mediterranean and Western Asia",
+          "Melanesia and Australia",
+          "MÃ©xico and Central America",
+          "Middle East and Indian Ocean",
+          "New Zealand to Fiji",
+          "Philippines and SE Asia",
+          "South America",
+          "West Indies"
+        ],
+        "labels":[
+          "Show All",
+          "Africa and Red Sea",
+          "Alaska",
+          "Antarctica",
+          "Atlantic Ocean",
+          "Canada and Western USA",
+          "Hawaii and Pacific Ocean",
+          "Iceland and Arctic Ocean",
+          "Indonesia",
+          "Japan, Taiwan, Marianas",
+          "Kamchatka and Mainland Asia",
+          "Kuril Islands",
+          "Mediterranean and Western Asia",
+          "Melanesia and Australia",
+          "Mexico and Central America",
+          "Middle East and Indian Ocean",
+          "New Zealand to Fiji",
+          "Philippines and SE Asia",
+          "South America",
+          "West Indies"
+        ],
+        "name":"Select Region"
+      }
+    },
+    {
+      "name":"VolcanoTypeSelection",
+      "bind":{
+        "input":"select",
+        "options":[
+          null,
+          "Caldera",
+          "Complex",
+          "Compound",
+          "Crater rows",
+          "Fissure vent",
+          "Lava cone",
+          "Lava dome",
+          "Maar",
+          "Pyroclastic cone",
+          "Pyroclastic shield",
+          "Shield",
+          "Stratovolcano",
+          "Subglacial",
+          "Submarine",
+          "Tuff cone",
+          "Volcanic field"
+        ],
+        "labels":[
+          "Show All",
+          "Caldera",
+          "Complex",
+          "Compound",
+          "Crater rows",
+          "Fissure vent",
+          "Lava cone",
+          "Lava dome",
+          "Maar",
+          "Pyroclastic cone",
+          "Pyroclastic shield",
+          "Shield",
+          "Stratovolcano",
+          "Subglacial",
+          "Submarine",
+          "Tuff cone",
+          "Volcanic field"
+        ],
+        "name":"Select Volcano Type: "
       }
     },
     {
@@ -88,6 +184,35 @@
         {
           "calculate":"floor((time(datum.end_date)-time(datum.start_date))/86400000)",
           "as":"Duration"
+        },
+        {
+          "filter":{
+            "field":"Duration",
+            "valid":true
+          }
+        },
+        {
+          "lookup":"volcano_number",
+          "from":{
+            "data":{
+              "url":"https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/volcano.csv"
+            },
+            "key":"volcano_number",
+            "fields":[
+              "region",
+              "primary_volcano_type"
+            ]
+          }
+        },
+        {
+          "filter":"region_select ? datum.region == region_select : true"
+        },
+        {
+          "calculate":"replace(datum.primary_volcano_type,/\\?|\\(.*\\)$/,'')",
+          "as":"VolcanoType"
+        },
+        {
+          "filter":"VolcanoTypeSelection ? datum.VolcanoType == VolcanoTypeSelection : true"
         }
       ],
       "layer":[
@@ -96,7 +221,8 @@
             "type":"circle",
             "color":"gold",
             "opacity":0.3,
-            "stroke":"white"
+            "stroke":"black",
+            "strokeOpacity":0.2
           },
           "encoding":{
             "size":{
@@ -175,6 +301,16 @@
         },
         {
           "filter":"datum.last_eruption_year >= year_since"
+        },
+        {
+          "filter":"region_select ? datum.region == region_select : true"
+        },
+        {
+          "calculate":"replace(datum.primary_volcano_type,/\\?|\\(.*\\)$/,'')",
+          "as":"VolcanoType"
+        },
+        {
+          "filter":"VolcanoTypeSelection ? datum.VolcanoType == VolcanoTypeSelection : true"
         }
       ],
       "layer":[
@@ -185,7 +321,7 @@
             "filled":true,
             "opacity":0.9,
             "stroke":"white",
-            "size":500
+            "size":200
           },
           "encoding":{
             "color":{
@@ -225,6 +361,21 @@
                 "title":"Population within 5km"
               }
             ]
+          }
+        },
+        {
+          "mark":{
+            "type":"text",
+            "align":"right",
+            "baseline":"middle",
+            "dx":-12,
+            "fontSize":11.5,
+            "fontStyle":"italic"
+          },
+          "encoding":{
+            "text":{
+              "field":""
+            }
           }
         }
       ]
