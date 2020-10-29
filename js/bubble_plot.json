@@ -1,0 +1,137 @@
+{
+  "$schema":"https://vega.github.io/schema/vega-lite/v4.json",
+  "data":{
+    "url":"https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/eruptions.csv"
+  },
+  "title":"Population per Eruption",
+  "width":600,
+  "height":400,
+  "params":[
+    {
+      "name":"population_range",
+      "bind":{
+        "input":"select",
+        "options":[
+          5,
+          10,
+          30,
+          100
+        ],
+        "labels":[
+          "5kms",
+          "10kms",
+          "30kms",
+          "100kms"
+        ],
+        "name":"Population Range"
+      }
+    },
+    {
+      "name":"year_since",
+      "value":1900,
+      "bind":{
+        "input":"range",
+        "min":-12000,
+        "max":2020,
+        "step":100,
+        "name":"Eruptions Since (year)"
+      }
+    }
+  ],
+  "transform":[
+    {
+      "lookup":"volcano_number",
+      "from":{
+        "data":{
+          "url":"https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/volcano.csv"
+        },
+        "key":"volcano_number",
+        "fields":[
+          "primary_volcano_type",
+          "country",
+          "region",
+          "elevation",
+          "population_within_5_km",
+          "population_within_10_km",
+          "population_within_30_km",
+          "population_within_100_km"
+        ]
+      }
+    },
+    {
+      "filter":{
+        "field":"vei",
+        "valid":true
+      }
+    },
+    {
+      "filter":"datum.start_year >= year_since"
+    },
+    {
+      "calculate":"datetime(datum.start_year,datum.start_month-1,datum.start_day)",
+      "as":"start_date"
+    },
+    {
+      "filter":{
+        "field":"start_date",
+        "valid":true
+      }
+    },
+    {
+      "calculate":"population_range == 100 ? datum.population_within_100_km : (population_range == 30 ? datum.population_within_30_km :(population_range == 10 ? datum.population_within_10_km : datum.population_within_5_km))",
+      "as":"population_range_count"
+    }
+  ],
+  "mark":{
+    "type":"circle",
+    "color":"crimson",
+    "opacity":0.8,
+    "stroke":"black",
+    "strokeWidth":1
+  },
+  "encoding":{
+    "x":{
+      "field":"start_date",
+      "type":"temporal",
+      "title":"Eruption Date"
+    },
+    "y":{
+      "field":"vei",
+      "type":"ordinal",
+      "axis":{
+        "title":"Volcanic Explositivity Index"
+      },
+      "sort":"-y"
+    },
+    "size":{
+      "field":"population_range_count",
+      "type":"quantitative",
+      "title":"Population (in 2020)",
+      "scale":{
+        "rangeMax":5000
+      }
+    },
+    "tooltip":[
+      {
+        "field":"volcano_name",
+        "type":"nominal",
+        "title":"Volcano Name"
+      },
+      {
+        "field":"country",
+        "type":"nominal",
+        "title":"Country"
+      },
+      {
+        "field":"start_date",
+        "type":"temporal",
+        "title":"Last Eruption Year"
+      },
+      {
+        "field":"population_range_count",
+        "type":"quantitative",
+        "title":"Population"
+      }
+    ]
+  }
+}
