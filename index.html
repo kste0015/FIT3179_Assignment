@@ -26,6 +26,9 @@
       text-align: center;
       background-color: lightgray;
       }
+      h3,p{
+        text-align: center;
+      }
       table, th, td {
       border: 1px solid black;
       }
@@ -158,27 +161,29 @@
       <!-- end pure grid group -->
       <!-- pure grid group -->
       <div class="pure-g">
-        <div class="pure-u-1-2">
-          <div id="box_plot"  class="vis-container"></div>
+        <div class="pure-u-2-5">
+          <div class="description description-left">
+            <h3>Tallest Volcano Types</h3>
+            <p>The <strong style="color:#6b6ecf">Compound</strong> volcano type has the tallest volcano. However, the average tallest volcanoes are <strong style="color:#8ca252">Lava cone</strong> types. The <strong style="color:#ad494a">Submarine</strong> volcano types are the shortest since they are below sea level.</p>
+            </div>
         </div>
-        <div class="pure-u-1-2">
-          <div id="heat_map"  class="vis-container"></div>
+        <div class="pure-u-1-5">
+        </div>
+        <div class="pure-u-2-5">
+          <div class="description description-left">
+            <h3>Dangerous Volcano Types</h3>
+            <p><strong style="color:#393b79">Caldera</strong>, <strong style="color:#bd9e39">Pyroclastic shield</strong> and <strong style="color:#e7cb94">Stratovolcano</strong> volcano types have erupted with a VEI of 7 making them the most dangerous volcano types. <strong style="color:#637939">Fissure vent</strong>, <strong style="color:#cedb9c">Maar</strong> and <strong style="color:#d6616b">Tuff cone</strong> have only erupted with up to 3 VEI making them the least dangerous volcano types.</p>
+          </div>
         </div>
       </div>
       <!-- end pure grid group -->
       <!-- pure grid group -->
       <div class="pure-g">
         <div class="pure-u-1-2">
-          <div class="description description-left">
-            <h3>Tallest Volcano Types</h3>
-            <p>The <strong style="color:#6b6ecf">Compound</strong> volcano type has the tallest volcano. However, the average tallest volcanoes are <strong style="color:#8ca252">Lava cone</strong> types. The <strong style="color:#ad494a">Submarine</strong> volcano types are the shortest since they are below sea level.</p>
-            </div>
+          <div id="box_plot"  class="vis-container"></div>
         </div>
         <div class="pure-u-1-2">
-          <div class="description description-left">
-            <h3>Dangerous Volcano Types</h3>
-            <p><strong style="color:#393b79">Caldera</strong>, <strong style="color:#bd9e39">Pyroclastic shield</strong> and <strong style="color:#e7cb94">Stratovolcano</strong> volcano types have erupted with a VEI of 7 making them the most dangerous volcano types. <strong style="color:#637939">Fissure vent</strong>, <strong style="color:#cedb9c">Maar</strong> and <strong style="color:#d6616b">Tuff cone</strong> have only erupted with up to 3 VEI making them the least dangerous volcano types.</p>
-          </div>
+          <div id="heat_map"  class="vis-container"></div>
         </div>
       </div>
       <!-- end pure grid group -->
