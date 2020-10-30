@@ -58,7 +58,7 @@
       "field":"vei",
       "type":"ordinal",
       "sort":"-y",
-      "title":"VEI"
+      "title":"Volcano Explosivity Index"
     },
     "color":{
       "field":"country_type_count",
@@ -83,7 +83,7 @@
       {
         "field":"vei",
         "type":"ordinal",
-        "title":"VEI"
+        "title":"Volcano Explosivity Index"
       }
     ]
   },
