@@ -124,7 +124,7 @@
       "field": "VolcanoType",
       "type": "nominal",
       "scale": {
-        "scheme": "tableau20"
+        "scheme": "category20b"
       },
       "title": "Volcano Type"
     },
