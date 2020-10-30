@@ -1,6 +1,6 @@
 {
   "$schema":"https://vega.github.io/schema/vega-lite/v4.json",
-  "title":"Volcanic Eruptions",
+  "title":"World Map of Volcanic Eruptions",
   "width": 740,
   "height": 400,
   "projection":{
