@@ -107,7 +107,7 @@
     }
   ],
   "mark": "bar",
-  "title": "Number of Eruptions",
+  "title": "Number of Eruptions in Regions",
   "encoding": {
     "x": {
       "field": "country_type_count",
