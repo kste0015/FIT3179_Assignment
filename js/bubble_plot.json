@@ -5,7 +5,7 @@
   "data":{
     "url":"https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/eruptions.csv"
   },
-  "title":"Population per Eruption",
+  "title":"Local Population of Eruptions",
   "params":[
     {
       "name":"population_range",
@@ -132,7 +132,7 @@
           {
             "field":"start_date",
             "type":"temporal",
-            "title":"Last Eruption Year"
+            "title":"Eruption Date"
           },
           {
             "field":"population_range_count",
