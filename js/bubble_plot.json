@@ -125,6 +125,11 @@
             "title":"Country"
           },
           {
+            "field":"vei",
+            "type":"ordinal",
+            "title":"Volcano Explosivity Index"
+          },
+          {
             "field":"start_date",
             "type":"temporal",
             "title":"Last Eruption Year"
