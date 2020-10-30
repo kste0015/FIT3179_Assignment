@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "width":500,
+  "width":450,
   "data": {
     "url": "https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/eruptions.csv"
   },
