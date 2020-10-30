@@ -34,7 +34,7 @@
           "type": "nominal",
           "legend": null,
           "scale": {
-            "scheme": "tableau20"
+            "scheme": "category20b"
           }
         }
       }
