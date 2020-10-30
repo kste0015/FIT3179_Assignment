@@ -1,6 +1,6 @@
 {
   "$schema":"https://vega.github.io/schema/vega-lite/v4.json",
-  "title":"VEI of Volcano Types",
+  "title":"Volcano Explosivity Index of Volcano Types",
   "data":{
     "url":"https://raw.githubusercontent.com/kste0015/FIT3179_Assignment/main/data/eruptions.csv"
   },
@@ -38,7 +38,7 @@
       "aggregate":[
         {
           "op":"count",
-          "as":"country_type_count"
+          "as":"vei_type_count"
         }
       ],
       "groupby":[
@@ -61,19 +61,19 @@
       "title":"Volcano Explosivity Index"
     },
     "color":{
-      "field":"country_type_count",
+      "field":"vei_type_count",
       "type":"quantitative",
       "scale":{
         "type":"log",
         "scheme":"reds"
       },
-      "title":"Volcano Count"
+      "title":"Eruption Count"
     },
     "tooltip":[
       {
-        "field":"country_type_count",
+        "field":"vei_type_count",
         "type":"quantitative",
-        "title":"Volcano Count"
+        "title":"Eruption Count"
       },
       {
         "field":"VolcanoType",
