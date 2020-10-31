@@ -7,14 +7,13 @@
   "transform": [
     {
       "calculate": "replace(datum.primary_volcano_type,/\\?|\\(.*\\)$/,'')",
-      "as": "VolcanoType"
+      "as": "Volcano Type"
     }
   ],
   "encoding": {
     "x": {
-      "field": "VolcanoType",
-      "type": "nominal",
-      "title": "Volcano Type"
+      "field": "Volcano Type",
+      "type": "nominal"
     },
     "y": {
       "field": "elevation",
@@ -30,7 +29,7 @@
       },
       "encoding": {
         "color": {
-          "field": "VolcanoType",
+          "field": "Volcano Type",
           "type": "nominal",
           "legend": null,
           "scale": {
